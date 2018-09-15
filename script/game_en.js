@@ -66,7 +66,7 @@ var WeaponTab = React.createClass({
     render: function() {
         return (
             <div id="weapontab" onClick={this.props.switchcards} className="tabdark">
-                <p id="tab"><b>Weapon cards</b></p>
+                <p id="tab"><b>{this.props.tabtext1}</b></p>
             </div>      
         )
     }  
@@ -75,7 +75,7 @@ var TrinketTab = React.createClass({
     render: function() {
         return (
             <div id="trinkettab" onClick={this.props.switchcards} className="tablight">
-                <p id="tab"><b>Trinket cards</b></p>
+                <p id="tab"><b>{this.props.tabtext2}</b></p>
             </div>      
         )
     }  
@@ -84,7 +84,7 @@ var RedTab = React.createClass({
     render: function() {
         return (
             <div id="redtab" onClick={this.props.switchcards} className="tablight">
-                <p id="tab"><b>Red cards</b></p>
+                <p id="tab"><b>{this.props.tabtext3}</b></p>
             </div>      
         )
     }  
@@ -117,6 +117,9 @@ var App = React.createClass({
             pricetext: "Price",
             maintext: "card game thing.",
             maintext2: "work in progress. nothing may or may not be final.",
+            tabtext1: "Weapon Cards",
+            tabtext2: "Trinket Cards",
+            tabtext3: "Red Cards",
             lang: 0, //0 == english, 1 == finnish
             currenttab: 0,
             weapontab: document.getElementById("weapontab"),
@@ -210,6 +213,9 @@ var App = React.createClass({
         this.state.allstats.rangetext = "Etäisyys"
         this.state.allstats.usetext = "Käyttökerrat"
         this.state.allstats.pricetext = "Hinta" 
+        this.state.tabtext1 = "Asekortit"
+        this.state.tabtext2 = "Esinekortit"
+        this.state.tabtext3 = "Punaiset kortit"
         if (this.state.currenttab == 0) {
             this.state.cardtypename = "Asekortit";
             this.state.cardtypetext = "Kortteja, joilla voit satuttaa pelaajia, tai yleisesti ottaen kohottaa omia selviytymiusmahdollisuuksiasi. Pelaaja voi hankkia kortteja astumalla kaupparuutuun, ostaminen tapahtuu pisteillä. Kädessä voi olla kerrallaan max. 3 korttia.";
@@ -232,6 +238,9 @@ var App = React.createClass({
         this.state.allstats.rangetext = "Range"
         this.state.allstats.usetext = "Uses"
         this.state.allstats.pricetext = "Price"
+        this.state.tabtext1 = "Weapon Cards"
+        this.state.tabtext2 = "Trinket Cards"
+        this.state.tabtext3 = "Red Cards"
         if (this.state.currenttab == 0) {
             this.state.cardtypename = "Weapon cards";
             this.state.cardtypetext = "Cards that can be used to hurt other players, or to increase your own odds of survival. Weapon cards can be acquired by stepping on a shop tile and purchasing using points. A player can hold up to a maximum of three weapon cards.";
@@ -251,13 +260,14 @@ var App = React.createClass({
     render: function() {
         return (
             <div>
-            <CardType cardtypetext={this.state.cardtypetext} cardtypename={this.state.cardtypename}/>
             <TopLeft maintext={this.state.maintext} maintext2={this.state.maintext2} allstats={this.state.allstats} showInfo={this.showInfo} currentcards={this.state.currentcards} switchlangfi={this.switchlangFi} switchlangeng={this.switchlangEng}/>
+            <CardType cardtypetext={this.state.cardtypetext} cardtypename={this.state.cardtypename}/>
+            
             <CardList allstats={this.state.allstats} currentcards={this.state.currentcards} currentcardid={this.state.currentcardid} showInfo={this.showInfo}/>
             <InfoList allstats={this.state.allstats}/>
-            <WeaponTab switchcards={this.switchCards.bind(this, "w")}/>
-            <TrinketTab switchcards={this.switchCards.bind(this, "t")}/>
-            <RedTab switchcards={this.switchCards.bind(this, "r")}/>
+            <WeaponTab switchcards={this.switchCards.bind(this, "w")} tabtext1={this.state.tabtext1}/>
+            <TrinketTab switchcards={this.switchCards.bind(this, "t")} tabtext2={this.state.tabtext2}/>
+            <RedTab switchcards={this.switchCards.bind(this, "r")} tabtext3={this.state.tabtext3}/>
             <SearchTab searchItem={this.searchItem}/>
             </div>
         )
